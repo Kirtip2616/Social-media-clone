@@ -1,0 +1,151 @@
+.stories-container {
+  border: 1px solid #dbdbdb;
+  border-radius: 8px;
+  background: white;
+  padding: 16px;
+  margin-bottom: 20px;
+  overflow-x: auto;
+}
+
+.stories-list {
+  display: flex;
+  gap: 15px;
+}
+
+.story-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  min-width: 70px;
+}
+
+.story-avatar {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: linear-gradient(45deg, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+  padding: 2px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 5px;
+  position: relative;
+}
+
+.story-avatar::before {
+  content: '';
+  position: absolute;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: white;
+}
+
+.story-avatar.has-new::after {
+  content: '';
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #0095f6;
+  border: 2px solid white;
+  bottom: 0;
+  right: 0;
+}
+
+.avatar-initial {
+  position: relative;
+  z-index: 2;
+  color: #333;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.story-avatar.create-new::before {
+  background: linear-gradient(45deg, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.add-icon {
+  position: relative;
+  z-index: 2;
+  color: white;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.story-username {
+  font-size: 12px;
+  color: #333;
+  max-width: 70px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  text-align: center;
+}
+
+.story-viewer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.9);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+}
+
+.story-content {
+  position: relative;
+  width: 90%;
+  max-width: 400px;
+  height: 80%;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  text-align: center;
+}
+
+.story-full-image {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  border-radius: 8px;
+}
+
+.story-caption {
+  font-size: 24px;
+  font-weight: bold;
+  margin-top: 20px;
+  word-wrap: break-word;
+  max-width: 100%;
+}
+
+.close-story-btn {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  font-size: 24px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.close-story-btn:hover {
+  background: rgba(0, 0, 0, 0.7);
+}

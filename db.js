@@ -7,23 +7,39 @@ const objectID=mongoose.objectID;
 const user=new Schema({
     name:String,
     email:{type:String, unique:true},
-    password:String
+    password:String,
+    bio: { type: String, default: "" },
+    profilePicture: { type: String, default: "" },
+    followers: [{ type: Schema.Types.ObjectId, ref: 'users' }],
+    following: [{ type: Schema.Types.ObjectId, ref: 'users' }],
+    createdAt: { type: Date, default: Date.now }
 })
 
 
 const post = new Schema({
   caption: String,
   imageUrl: String,
-  userid: String,
+  userid:  { type: Schema.Types.ObjectId, ref: 'users' },
   createdAt: { type: Date, default: Date.now },
 });
-// here "users": means put the data in users collection that was created in mgcompass
+
+const story = new Schema({
+  caption: String,
+  imageUrl: String,
+  backgroundColor: String,
+  textColor: String,
+  userid: { type: Schema.Types.ObjectId, ref: 'users' },
+  createdAt: { type: Date, default: Date.now, expires: 86400 } // Auto-delete after 24 hours
+});
+// here "users": means put the data in users collection that was created in mgdbcompass
 // and user: refers to the schema created here
 const UserModel=mongoose.model("users",user);
 const PostModel=mongoose.model("posts",post);
+const StoryModel = mongoose.model("stories", story);
 
 // this helps us to export this whole code to different files in the directory
 module.exports={
     UserModel,
-    PostModel
+    PostModel,
+    StoryModel
 }

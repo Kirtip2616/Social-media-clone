@@ -1,0 +1,142 @@
+.navbar-left {
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100vh;
+  width: 250px;
+  background-color: #fff;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  z-index: 1000;
+  padding: 20px 0;
+}
+
+.navbar-brand {
+  display: flex;
+  align-items: center;
+  padding: 0 20px 20px;
+  border-bottom: 1px solid #eee;
+  margin-bottom: 20px;
+
+}
+
+.logo-image {
+  width: 70px; 
+  height: 70px;
+  object-fit: contain; 
+}
+
+.logo-text {
+  font-size: 22px;
+  font-weight: bold;
+  color: #333;
+}
+
+.nav-links {
+  flex: 1;
+  padding: 0 25px;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  padding: 12px 15px;
+  margin-bottom: 4px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.nav-item:hover {
+  background-color: #f8f8f8;
+  transform: translateX(4px);
+}
+
+
+.nav-item.active {
+  background-color: #e9f5ff;
+  font-weight: 600;
+  color: #0095f6;
+}
+
+.nav-item.active::before {
+  content: '';
+  position: absolute;
+  left: -20px;
+  top: 0;
+  height: 100%;
+  width: 4px;
+  background-color: #0095f6;
+  border-radius: 0 2px 2px 0;
+}
+
+.nav-icon {
+  margin-right: 12px;
+  font-size: 20px;
+  transition: transform 0.2s ease;
+}
+
+.nav-item:hover .nav-icon {
+  transform: scale(1.1);
+}
+
+.nav-text {
+  font-size: 15px;
+  transition: color 0.2s ease;
+}
+
+.nav-item.active .nav-text {
+  color: #0095f6;
+}
+
+.new-post-btn {
+  background-color: #0095f6;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 15px;
+  margin-top: 15px;
+  width: 100%;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.new-post-btn:hover {
+  background-color: #0086e0;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 149, 246, 0.3);
+}
+.new-post-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 4px rgba(0, 149, 246, 0.3);
+}
+.nav-footer {
+  padding: 15px;
+  border-top: 1px solid #eee;
+}
+
+.logout-btn {
+  background: none;
+  border: none;
+  color: black;
+  padding: 12px 15px;
+  width: 100%;
+  margin-left: 10px;
+  margin-bottom: 20px;
+  cursor: pointer;
+  font-size: 15px;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border-radius: 6px;
+}
+
+
+.logout-btn:hover {
+  color: #ff4d4f;
+  background-color: #fff0f0;
+}
+

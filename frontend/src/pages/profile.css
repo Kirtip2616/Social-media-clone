@@ -1,0 +1,347 @@
+.profile-container {
+  margin-left: 280px;
+  padding: 30px;
+  max-width: 800px;
+}
+
+.profile-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  border-bottom: 1px solid #dbdbdb;
+  padding-bottom: 20px;
+}
+
+.profile-header h1 {
+  margin: 0;
+  color: #262626;
+  font-size: 28px;
+}
+
+.edit-profile-btn {
+  background-color: #0095f6;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 20px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.edit-profile-btn:hover {
+  background-color: #0086e0;
+}
+
+.edit-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.cancel-btn {
+  background-color: #f0f0f0;
+  color: #262626;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 20px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.cancel-btn:hover:not(:disabled) {
+  background-color: #e0e0e0;
+}
+
+.save-btn {
+  background-color: #0095f6;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 20px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.save-btn:hover:not(:disabled) {
+  background-color: #0086e0;
+}
+
+.save-btn:disabled {
+  background-color: #b2dffc;
+  cursor: not-allowed;
+}
+
+.profile-content {
+  display: flex;
+  gap: 40px;
+  align-items: flex-start;
+}
+
+.profile-picture-section {
+  flex-shrink: 0;
+}
+
+.profile-picture-container {
+  text-align: center;
+  position: relative;
+}
+
+.profile-picture {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #dbdbdb;
+}
+.profile-picture-fallback {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  border: 3px solid #dbdbdb;
+  background: linear-gradient(45deg, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  color: white;
+  font-size: 48px;
+  margin: 0 auto;
+}
+
+.profile-picture-fallback.hidden {
+  display: none;
+}
+
+.profile-picture-actions {
+  margin-top: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.change-picture-btn {
+  background-color: #0095f6;
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 12px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.2s;
+}
+
+.change-picture-btn:hover {
+  background-color: #e0e0e0;
+}
+
+.remove-picture-btn {
+  background-color: transparent;
+  color: #ed4956;
+  border: 1px solid #ed4956;
+  border-radius: 6px;
+  padding: 8px 12px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.2s;
+}
+
+.remove-picture-btn:hover {
+  background-color: #fff0f0;
+}
+
+.file-input {
+  display: none;
+}
+
+.profile-info {
+  flex: 1;
+}
+
+.profile-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-group label {
+  font-weight: 600;
+  color: #262626;
+  font-size: 14px;
+}
+
+.form-input {
+  padding: 12px;
+  border: 1px solid #dbdbdb;
+  border-radius: 6px;
+  font-size: 14px;
+  background: #fafafa;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: #a8a8a8;
+  background: white;
+}
+
+.form-textarea {
+  padding: 12px;
+  border: 1px solid #dbdbdb;
+  border-radius: 6px;
+  font-size: 14px;
+  font-family: inherit;
+  resize: vertical;
+  background: #fafafa;
+}
+
+.form-textarea:focus {
+  outline: none;
+  border-color: #a8a8a8;
+  background: white;
+}
+
+.char-count {
+  text-align: right;
+  font-size: 12px;
+  color: #8e8e8e;
+}
+
+.profile-display {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.profile-name {
+  margin: 0;
+  color: #262626;
+  font-size: 24px;
+}
+
+.profile-bio {
+  margin: 0;
+  color: #262626;
+  line-height: 1.5;
+  font-size: 15px;
+}
+
+.no-bio {
+  margin: 0;
+  color: #8e8e8e;
+  font-style: italic;
+  font-size: 15px;
+}
+
+.profile-stats {
+  display: flex;
+  gap: 30px;
+  margin-top: 10px;
+}
+
+.stat {
+  text-align: center;
+}
+
+.stat-number {
+  display: block;
+  font-weight: 600;
+  font-size: 18px;
+  color: #262626;
+}
+
+.stat-label {
+  font-size: 14px;
+  color: #8e8e8e;
+}
+
+.loading {
+  text-align: center;
+  padding: 40px;
+  color: #8e8e8e;
+  font-size: 16px;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .profile-container {
+    margin-left: 0;
+    padding: 20px;
+  }
+  
+  .profile-content {
+    flex-direction: column;
+    gap: 20px;
+    text-align: center;
+  }
+  
+  .profile-stats {
+    justify-content: center;
+  }
+}
+
+
+/* My Posts Section */
+.my-posts-section {
+  margin-top: 40px;
+  border-top: 1px solid #dbdbdb;
+  padding-top: 30px;
+}
+
+.my-posts-title {
+  margin: 0 0 20px 0;
+  color: #262626;
+  font-size: 22px;
+  font-weight: 600;
+}
+
+.loading-posts {
+  text-align: center;
+  padding: 40px;
+  color: #8e8e8e;
+  font-size: 16px;
+}
+
+.no-posts {
+  text-align: center;
+  padding: 40px;
+  color: #8e8e8e;
+  font-size: 16px;
+  background: #fafafa;
+  border-radius: 8px;
+  border: 1px solid #dbdbdb;
+}
+
+.no-posts p {
+  margin: 5px 0;
+}
+
+.posts-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Make sure PostCard styles work well in profile */
+.posts-grid .post-card {
+  margin-bottom: 0;
+}
+
+/* Responsive design for posts */
+@media (max-width: 768px) {
+  .my-posts-section {
+    margin-top: 30px;
+    padding-top: 20px;
+  }
+  
+  .posts-grid {
+    gap: 15px;
+  }
+}

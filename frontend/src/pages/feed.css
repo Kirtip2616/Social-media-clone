@@ -1,0 +1,59 @@
+.feed-layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+.feed-content {
+  margin: 0 auto;
+  padding: 20px;
+  width: calc(100% - 250px);
+  max-width: 600px;
+}
+
+.posts-container {
+  margin-top: 20px;
+}
+
+.no-posts {
+  text-align: center;
+  padding: 40px;
+  color: #888;
+}
+
+/* Modal Styles */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+}
+
+.modal-content {
+  background: white;
+  padding: 25px;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 500px;
+  position: relative;
+}
+
+.close-modal {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #888;
+}
+
+.close-modal:hover {
+  color: #333;
+}

@@ -1,0 +1,141 @@
+.friends-container {
+  margin-left: 280px;
+  padding: 30px;
+  max-width: 800px;
+}
+
+.friends-container h1 {
+  margin: 0 0 20px 0;
+  color: #262626;
+  font-size: 28px;
+}
+
+.friends-tabs {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 30px;
+  border-bottom: 1px solid #dbdbdb;
+}
+
+.tab-btn {
+  padding: 12px 20px;
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  color: #8e8e8e;
+  transition: all 0.2s;
+}
+
+.tab-btn.active {
+  color: #262626;
+  border-bottom-color: #262626;
+}
+
+.tab-btn:hover {
+  color: #262626;
+}
+
+.friends-content {
+  min-height: 400px;
+}
+
+.loading {
+  text-align: center;
+  padding: 40px;
+  color: #8e8e8e;
+  font-size: 16px;
+}
+
+.no-users {
+  text-align: center;
+  padding: 40px;
+  color: #8e8e8e;
+  font-size: 16px;
+}
+
+.user-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  border: 1px solid #dbdbdb;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  background: white;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.user-avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: linear-gradient(45deg, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.user-avatar img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.user-details h4 {
+  margin: 0 0 5px 0;
+  color: #262626;
+  font-size: 16px;
+}
+
+.user-bio {
+  margin: 0 0 5px 0;
+  color: #8e8e8e;
+  font-size: 14px;
+  max-width: 300px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.user-followers {
+  margin: 0;
+  color: #8e8e8e;
+  font-size: 12px;
+}
+
+.follow-btn {
+  padding: 8px 16px;
+  background-color: #0095f6;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  transition: background-color 0.2s;
+}
+
+.follow-btn.following {
+  background-color: #efefef;
+  color: #262626;
+}
+
+.follow-btn:hover:not(.following) {
+  background-color: #0086e0;
+}
+
+.follow-btn.following:hover {
+  background-color: #dbdbdb;
+}
