@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
-
+import login from "../assets/login.jpg";
+import "./auth.css";
 export default function Signin() {
   const [form, setForm] = useState({ email: "", password: "" });
+  
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -21,14 +23,24 @@ export default function Signin() {
   };
 
   return (
-    <div className="container">
-      <h2>Signin</h2>
-      <form onSubmit={handleSubmit} className="form">
-        <input placeholder="Email" onChange={e => setForm({...form, email:e.target.value})} />
-        <input type="password" placeholder="Password" onChange={e => setForm({...form, password:e.target.value})} />
-        <button type="submit">Signin</button>
-      </form>
-      <p>No account? <Link to="/">Signup</Link></p>
+   
+    <div className="auth-page">
+      <div className="auth-container">
+        <div className="auth-form-section">
+        <h2>Sign In</h2>
+        <form onSubmit={handleSubmit} className="auth-form">
+          <input placeholder="Email" onChange={e => setForm({...form, email:e.target.value})} />
+          <input type="password" placeholder="Password" onChange={e => setForm({...form, password:e.target.value})} />
+          <button type="submit">Sign In</button>
+        </form>
+        <p>No account? <Link to="/">Signup</Link></p>
+      </div>
+      <div className="auth-image-section">
+        <img src={login} alt="Signin visual" />
+        <h3>Welcome Back!</h3>
+        <p>Continue your journey with our community.</p>
+      </div>
+    </div>
     </div>
   );
 }
