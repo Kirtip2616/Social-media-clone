@@ -76,9 +76,15 @@ app.post("/post", auth, async (req, res) => {
 // GET POSTS 
 app.get("/posts", auth, async (req, res) => {
  const posts = await PostModel.find({})
-    .populate("userid", "name email") // This should now work correctly
+    .populate("userid", "name email profilePicture") // This should now work correctly
+    .populate("likes", "name profilePicture")
+    .populate("comments.userid", "name profilePicture")
     .sort({ createdAt: -1 }); // Add sorting to show newest posts first
-  res.json({ posts });
+   if (posts.length > 0 && posts[0].comments.length > 0) {
+      console.log("First comment user data:", posts[0].comments[0].userid);
+    }
+    res.json({ posts });
+   console.log("Sending posts with comments:", posts[0]?.comments);
 });
 
 
@@ -120,7 +126,156 @@ const storage = multer.diskStorage({
     cb(null, Date.now() + path.extname(file.originalname));
   }
 });
+// LIKE/UNLIKE POST
+app.post("/posts/:id/like", auth, async (req, res) => {
+  try {
+    const postId = req.params.id;
+    const userId = req.userid;
 
+    const post = await PostModel.findById(postId);
+    
+    if (!post) {
+      return res.status(404).json({ message: "Post not found" });
+    }
+
+    const isLiked = post.likes.includes(userId);
+
+    if (isLiked) {
+      // Unlike
+      await PostModel.findByIdAndUpdate(postId, {
+        $pull: { likes: userId }
+      });
+      res.json({ 
+        message: "Post unliked", 
+        action: "unlike",
+        likesCount: post.likes.length - 1
+      });
+    } else {
+      // Like
+      await PostModel.findByIdAndUpdate(postId, {
+        $addToSet: { likes: userId }
+      });
+      res.json({ 
+        message: "Post liked", 
+        action: "like",
+        likesCount: post.likes.length + 1
+      });
+    }
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Failed to like/unlike post" });
+  }
+});
+
+// ADD COMMENT
+app.post("/posts/:id/comment", auth, async (req, res) => {
+  try {
+    const postId = req.params.id;
+    const userId = req.userid;
+    const { text } = req.body;
+
+    if (!text || !text.trim()) {
+      return res.status(400).json({ message: "Comment text is required" });
+    }
+
+    const post = await PostModel.findByIdAndUpdate(
+      postId,
+      {
+        $push: {
+          comments: {
+            userid: userId,
+            text: text.trim()
+          }
+        }
+      },
+      { new: true }
+    ).populate('comments.userid', 'name profilePicture');
+
+    if (!post) {
+      return res.status(404).json({ message: "Post not found" });
+    }
+
+    const newComment = post.comments[post.comments.length - 1];
+    const populatedComment = await PostModel.populate(newComment, {
+      path: 'userid',
+      select: 'name profilePicture'
+    });
+    
+    console.log("Populated comment:", populatedComment);
+    res.json({ 
+      message: "Comment added successfully",
+      comment: newComment
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Failed to add comment" });
+  }
+});
+
+// GET POST LIKES
+app.get("/posts/:id/likes", auth, async (req, res) => {
+  try {
+    const postId = req.params.id;
+    
+    const post = await PostModel.findById(postId)
+      .populate('likes', 'name profilePicture')
+      .select('likes');
+
+    if (!post) {
+      return res.status(404).json({ message: "Post not found" });
+    }
+
+    res.json({ likes: post.likes });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Failed to get likes" });
+  }
+});
+
+// Update the GET posts endpoint to include likes and comments
+app.get("/posts", auth, async (req, res) => {
+  try {
+    const posts = await PostModel.find({})
+      .populate("userid", "name email profilePicture")
+      .populate("likes", "name profilePicture")
+      .populate("comments.userid", "name profilePicture")
+      .sort({ createdAt: -1 });
+    
+    res.json({ posts });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Failed to fetch posts" });
+  }
+});
+// EDIT POST
+app.put("/posts/:id", auth, async (req, res) => {
+  try {
+    const postId = req.params.id;
+    const userId = req.userid;
+    const { caption } = req.body;
+
+    const post = await PostModel.findById(postId);
+    
+    if (!post) {
+      return res.status(404).json({ message: "Post not found" });
+    }
+    
+    if (post.userid.toString() !== userId) {
+      return res.status(403).json({ message: "Not authorized to edit this post" });
+    }
+    
+    post.caption = caption;
+    await post.save();
+    
+    res.json({ 
+      message: "Post updated successfully",
+      post 
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Failed to update post" });
+  }
+});
 const upload = multer({ storage: storage });
 
 // Serve uploaded files statically
@@ -172,9 +327,27 @@ app.post("/upload", auth, upload.single("image"), async (req, res) => {
 });
 // GET USER PROFILE
 app.get("/profile", auth, async (req, res) => {
-  try {
-    const user = await UserModel.findById(req.userid).select("-password");
-    res.json({ user });
+ try {
+    const user = await UserModel.findById(req.userid)
+      .select("-password")
+      .populate("followers", "_id")  // Just get IDs
+      .populate("following", "_id");
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    res.json({
+      user: {
+        _id: user._id,
+        name: user.name,
+        email: user.email,
+        bio: user.bio,
+        profilePicture: user.profilePicture,
+        followersCount: user.followers.length,
+        followingCount: user.following.length,
+      }
+    });
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: "Failed to fetch profile" });
@@ -273,7 +446,7 @@ app.post("/story", auth, upload.single("image"), async (req, res) => {
 app.get("/stories", auth, async (req, res) => {
   try {
     const stories = await StoryModel.find({})
-      .populate("userid", "name email")
+      .populate("userid", "name email profilePicture")
       .sort({ createdAt: -1 });
     res.json({ stories });
   } catch (err) {
@@ -286,13 +459,44 @@ app.get("/stories", auth, async (req, res) => {
 app.get("/stories/me", auth, async (req, res) => {
   try {
     const stories = await StoryModel.find({ userid: req.userid })
-      .sort({ createdAt: -1 });
+      
+    .sort({ createdAt: -1 });
     res.json({ stories });
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: "Failed to fetch your stories" });
   }
 });
+// DELETE STORY
+app.delete("/stories/:id", auth, async (req, res) => {
+  try {
+    const storyId = req.params.id;
+    const userId = req.userid;
+    
+    console.log(`Attempting to delete story ${storyId} for user ${userId}`);
+    const story = await StoryModel.findById(storyId);
+    
+    if (!story) {
+      console.log(`Story ${storyId} not found`);
+      return res.status(404).json({ message: "Story not found" });
+    }
+    const storyUserId = story.userid.toString();
+    const requestUserId = userId.toString();
+    if (story.userid.toString() !== userId) {
+      console.log(`User ${userId} not authorized to delete story ${storyId}`);
+      return res.status(403).json({ message: "Not authorized to delete this story" });
+    }
+    
+    await StoryModel.findByIdAndDelete(storyId);
+    console.log(`Story ${storyId} deleted successfully`);
+    
+    res.json({ message: "Story deleted successfully" });
+  } catch (err) {
+    console.error("Error deleting story:", err);
+    res.status(500).json({ message: "Failed to delete story" });
+  }
+});
+
 // FOLLOW/UNFOLLOW USER
 app.post("/follow/:userId", auth, async (req, res) => {
   try {
@@ -313,24 +517,38 @@ app.post("/follow/:userId", auth, async (req, res) => {
     // Check if already following
     const isFollowing = currentUser.following.includes(targetUserId);
 
-    if (isFollowing) {
+     if (isFollowing) {
       // Unfollow
-      await UserModel.findByIdAndUpdate(currentUserId, {
+      updatedCurrentUser = await UserModel.findByIdAndUpdate(currentUserId, {
         $pull: { following: targetUserId }
-      });
-      await UserModel.findByIdAndUpdate(targetUserId, {
+      }, { new: true });
+      
+      updatedTargetUser = await UserModel.findByIdAndUpdate(targetUserId, {
         $pull: { followers: currentUserId }
+      }, { new: true });
+      
+      res.json({ 
+        message: "Unfollowed successfully", 
+        action: "unfollow",
+        targetUser: updatedTargetUser,
+        currentUser: updatedCurrentUser
       });
-      res.json({ message: "Unfollowed successfully", action: "unfollow" });
     } else {
       // Follow
-      await UserModel.findByIdAndUpdate(currentUserId, {
+      updatedCurrentUser = await UserModel.findByIdAndUpdate(currentUserId, {
         $addToSet: { following: targetUserId }
-      });
-      await UserModel.findByIdAndUpdate(targetUserId, {
+      }, { new: true });
+      
+      updatedTargetUser = await UserModel.findByIdAndUpdate(targetUserId, {
         $addToSet: { followers: currentUserId }
+      }, { new: true });
+      
+      res.json({ 
+        message: "Followed successfully", 
+        action: "follow",
+        targetUser: updatedTargetUser,
+        currentUser: updatedCurrentUser
       });
-      res.json({ message: "Followed successfully", action: "follow" });
     }
   } catch (err) {
     console.error(err);
@@ -358,11 +576,15 @@ app.get("/follow/status/:userId", auth, async (req, res) => {
 app.get("/users/suggestions", auth, async (req, res) => {
   try {
     const currentUserId = req.userid;
+    const currentUser = await UserModel.findById(currentUserId);
     
-    // Get users that current user is not following (excluding themselves)
     const users = await UserModel.find({
-      _id: { $ne: currentUserId, $nin: await UserModel.findById(currentUserId).select('following') }
+      _id: { 
+        $ne: currentUserId, 
+        $nin: currentUser.following // Exclude users you're already following
+      }
     })
+    
     .select('name profilePicture bio followers')
     .limit(10);
 
@@ -379,7 +601,7 @@ app.get("/users/followers", auth, async (req, res) => {
     const currentUserId = req.userid;
     
     const user = await UserModel.findById(currentUserId)
-      .populate('followers', 'name profilePicture bio')
+      .populate('followers', 'name profilePicture bio followers')
       .select('followers');
 
     res.json({ followers: user.followers });
@@ -395,7 +617,7 @@ app.get("/users/following", auth, async (req, res) => {
     const currentUserId = req.userid;
     
     const user = await UserModel.findById(currentUserId)
-      .populate('following', 'name profilePicture bio')
+      .populate('following', 'name profilePicture bio followers')
       .select('following');
 
     res.json({ following: user.following });
@@ -424,6 +646,22 @@ app.get("/posts/following", auth, async (req, res) => {
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: "Failed to fetch posts" });
+  }
+});
+// GET USER BY ID (for comment user data)
+app.get("/users/:id", auth, async (req, res) => {
+  try {
+    const userId = req.params.id;
+    const user = await UserModel.findById(userId).select("name profilePicture");
+    
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+    
+    res.json({ user });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Failed to fetch user" });
   }
 });
 app.listen(process.env.PORT || 3000, () =>

@@ -310,20 +310,21 @@ export default function Profile() {
                 {!user.bio && (
                   <p className="no-bio">No bio yet. Click Edit Profile to add one!</p>
                 )}
-                <div className="profile-stats">
-                  <div className="stat">
-                    <span className="stat-number">{userPosts.length}</span>
-                    <span className="stat-label">Posts</span>
-                  </div>
-                  <div className="stat">
-                    <span className="stat-number">0</span>
-                    <span className="stat-label">Followers</span>
-                  </div>
-                  <div className="stat">
-                    <span className="stat-number">0</span>
-                    <span className="stat-label">Following</span>
-                  </div>
+              <div className="profile-stats">
+                <div className="stat">
+                  <span className="stat-number">{userPosts.length}</span>
+                  <span className="stat-label">Posts</span>
                 </div>
+                <div className="stat">
+                  <span className="stat-number">{user.followersCount || 0}</span>
+                  <span className="stat-label">Followers</span>
+                </div>
+                <div className="stat">
+                  <span className="stat-number">{user.followingCount || 0}</span>
+                  <span className="stat-label">Following</span>
+              </div>
+              </div>
+
               </div>
             )}
           </div>

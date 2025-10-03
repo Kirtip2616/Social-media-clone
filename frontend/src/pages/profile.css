@@ -335,13 +335,213 @@
 }
 
 /* Responsive design for posts */
+/* Profile Responsive */
 @media (max-width: 768px) {
+  .profile-container {
+    padding: 15px;
+  }
+
+  .profile-header {
+    flex-direction: column;
+    gap: 15px;
+    align-items: flex-start;
+  }
+
+  .profile-content {
+    flex-direction: column;
+    gap: 20px;
+    text-align: center;
+  }
+
+  .profile-picture-section {
+    margin-right: 0;
+  }
+
+  .profile-picture-container {
+    margin: 0 auto;
+  }
+
+  .profile-picture {
+    width: 100px;
+    height: 100px;
+  }
+
+  .profile-picture-fallback {
+    width: 100px;
+    height: 100px;
+    font-size: 36px;
+  }
+
+  .profile-stats {
+    justify-content: center;
+    gap: 30px;
+  }
+
+  .posts-grid {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+
+  .edit-profile-btn,
+  .save-btn,
+  .cancel-btn {
+    width: 100%;
+    text-align: center;
+  }
+
+  .edit-actions {
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .profile-container {
+    margin-left: 0;
+    padding: 15px 12px;
+    max-width: 100%;
+  }
+   .profile-header {
+    flex-direction: row; /* Keep horizontal layout */
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    gap: 10px;
+  }
+  .profile-header h1 {
+    font-size: 20px;
+    margin: 10px;
+    flex: 1;
+  }
+  .profile-content {
+    flex-direction: row;
+    gap: 10px;
+    align-items: flex-start;
+    text-align: left;
+  }
+  .profile-picture-section {
+    flex-shrink: 0;
+    margin-right: 0;
+  }
+
+  .profile-picture-container {
+    text-align: center;
+  }
+
+ .profile-picture,
+  .profile-picture-fallback {
+    width: 80px;
+    height: 80px;
+  }
+
+  .profile-picture-fallback {
+    font-size: 28px;
+  }
+  .profile-picture-actions {
+    margin-top: 10px;
+    gap: 6px;
+  }
+ 
+  .profile-stats {
+    display: flex;
+    margin: 2px;
+    gap: 15px;
+    justify-content: flex-start;
+    flex-wrap: wrap;;
+  }
+
+  .stat {
+    min-width: 60px;
+    text-align: left; /* Keep left alignment */
+  }
+
+  .change-picture-btn,
+  .remove-picture-btn {
+    font-size: 11px;
+    padding: 6px 10px;
+  }
+
+  .profile-info {
+    flex: 1;
+    min-width: 0; 
+  }
+  .profile-display {
+    gap: 8px;
+  }
+  .stat-number {
+    font-size: 14px;
+    font-weight: 600;
+    display: block;
+  }
+
+  .stat-label {
+    
+    font-size: 12px;
+    color: #8e8e8e;
+  }
+
+  .profile-name {
+    font-size: 16px;
+    margin: 0;
+    text-align: left;
+  }
+
+  .profile-bio,
+  .no-bio {
+    font-size: 13px;
+    margin: 0;
+    text-align: left;
+    line-height: 1;
+  }
+
+  .edit-profile-btn
+  {
+    font-size: 12px;
+    padding: 7px 15px;
+    margin-right: 12.5px;
+    width: 30%;
+  }
+  .edit-actions {
+    flex-direction: row; /* Keep buttons side by side */
+    gap: 10px;
+    width: 100%;
+    margin-top: 15px;
+  }
+  .save-btn,
+  .cancel-btn {
+    font-size: 12px;
+    padding: 6px 10px;
+    width: auto;
+    flex: 1;
+  }
+
+  .form-group {
+    gap: 6px;
+  }
+
+  .form-input,
+  .form-textarea {
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid grey;
+  }
+
+  .char-count {
+    font-size: 11px;
+  }
+
+  .posts-grid {
+    gap: 10px;
+  }
+
   .my-posts-section {
-    margin-top: 30px;
+    margin-top: 20px;
     padding-top: 20px;
   }
-  
-  .posts-grid {
-    gap: 15px;
+
+  .my-posts-title {
+    font-size: 18px;
   }
 }

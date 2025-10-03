@@ -101,14 +101,14 @@ export default function StoryCreation({ onStoryCreated, onClose }) {
             className={`type-btn ${storyType === "text" ? "active" : ""}`}
             onClick={() => setStoryType("text")}
           >
-            📝 Text Story
+            Text Story
           </button>
           <button 
             type="button"
             className={`type-btn ${storyType === "image" ? "active" : ""}`}
             onClick={() => setStoryType("image")}
           >
-            🖼️ Image Story
+            Image Story
           </button>
         </div>
 

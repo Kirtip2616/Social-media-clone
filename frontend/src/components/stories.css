@@ -31,6 +31,7 @@
   align-items: center;
   margin-bottom: 5px;
   position: relative;
+  overflow: hidden;
 }
 
 .story-avatar::before {
@@ -40,6 +41,7 @@
   height: 56px;
   border-radius: 50%;
   background: white;
+  z-index: 1;
 }
 
 .story-avatar.has-new::after {
@@ -52,6 +54,21 @@
   border: 2px solid white;
   bottom: 0;
   right: 0;
+  z-index: 3;
+}
+
+.story-avatar.multi-stories {
+  background: linear-gradient(45deg, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+  padding: 3px;
+}
+
+.profile-picture-avatar {
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  object-fit: cover;
+  position: relative;
+  z-index: 2;
 }
 
 .avatar-initial {
@@ -67,6 +84,12 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.story-avatar.create-new .profile-picture-avatar {
+  width: 56px;
+  height: 56px;
+  border: 2px solid white;
 }
 
 .add-icon {
@@ -114,6 +137,45 @@
   text-align: center;
 }
 
+.story-bars {
+  position: absolute;
+  top: 5px;
+  left: 10px;
+  right: 10px;
+  display: flex;
+  gap: 4px;
+  z-index: 3;
+}
+
+.story-bar {
+  flex: 1;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 2px;
+  transition: background 0.3s ease;
+}
+
+.story-bar.active {
+  background: rgba(255, 255, 255, 1);
+}
+
+.story-click-area {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 30%;
+  z-index: 2;
+  cursor: pointer;
+}
+
+.story-click-area.left {
+  left: 0;
+}
+
+.story-click-area.right {
+  right: 0;
+}
+
 .story-full-image {
   max-width: 100%;
   max-height: 100%;
@@ -148,4 +210,77 @@
 
 .close-story-btn:hover {
   background: rgba(0, 0, 0, 0.7);
+}
+
+.delete-story-btn {
+  position: absolute;
+  top: 15px;
+  right: 60px;
+  background: rgba(0, 0, 0, 0.5);
+
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  font-size: 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 1000; /* High z-index to ensure it's on top */
+  color: white;
+  font-size: 16px;
+  transition: all 0.2s;
+}
+
+.delete-story-btn:hover {
+  background: rgba(0, 0, 0, 0.7);
+}
+
+.story-item:hover .story-avatar {
+  transform: scale(1.05);
+  transition: transform 0.2s ease;
+}
+
+.story-item:hover .story-username {
+  color: #0095f6;
+}
+
+@media (max-width: 480px) {
+  .stories-list {
+    padding: 8px 5px;
+    margin-left: -18px;
+    gap: 10px;
+  }
+
+  .story-avatar {
+    width: 60px;
+    height: 60px;
+    padding: 2px;
+    background: linear-gradient(45deg, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+  }
+ .story-avatar::before {
+    width: 56px;
+    height: 56px; 
+  }
+
+  .profile-picture-avatar {
+    width: 54px; 
+    height: 54px; 
+  }
+  .story-username {
+    font-size: 10px;
+  }
+
+  .add-icon {
+    font-size: 16px;
+  
+  }
+
+  .story-caption {
+    font-size: 14px;
+    padding: 12px;
+    bottom: 50px;
+  }
 }

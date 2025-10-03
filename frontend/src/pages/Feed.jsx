@@ -71,6 +71,15 @@ export default function Feed() {
     setShowNewPostForm(false);
   };
 
+  const handleEditPostFromFeed = (postId, newCaption) => {
+  setPosts(prevPosts =>
+    prevPosts.map(p =>
+      p._id === postId ? { ...p, caption: newCaption } : p
+    )
+  );
+};
+
+
   return (
     <div className="feed-layout">
       <Navbar />
@@ -79,15 +88,7 @@ export default function Feed() {
         {/* Stories Section */}
         <Stories />
         
-        {/* New Post Modal */}
-        {showNewPostForm && (
-          <div className="modal-overlay">
-            <div className="modal-content">
-              <button className="close-modal" onClick={closeNewPostForm}>×</button>
-              <NewPost onPosted={handlePostCreated} />
-            </div>
-          </div>
-        )}
+       
         
         {/* Posts Feed */}
         <div className="posts-container">
@@ -103,6 +104,7 @@ export default function Feed() {
                 key={p._id} 
                 post={p} 
                 onDelete={handleDeletePost}
+                onEdit={handleEditPostFromFeed}
                 currentUserId={currentUserId}
               />
             ))

@@ -1,5 +1,6 @@
 .feed-layout {
   display: flex;
+  flex-direction: row;
   min-height: 100vh;
 }
 
@@ -57,3 +58,79 @@
 .close-modal:hover {
   color: #333;
 }
+
+@media (max-width: 480px) {
+  .feed-content {
+    padding: 15px;
+    width:100%;
+  }
+
+  .posts-container {
+    margin-top: 15px;
+  }
+
+  .no-posts {
+    padding: 30px 20px;
+    font-size: 14px;
+  }
+
+  .modal-content {
+    padding: 15px;
+    margin: 15px;
+    width: calc(100% - 20px);
+    max-width: 90vw;
+    border-radius: 8px;
+  }
+
+  .close-modal {
+    top: 8px;
+    right: 8px;
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 360px) {
+  .feed-content {
+    padding: 8px;
+  }
+
+  .modal-content {
+    padding: 12px;
+    margin: 10px;
+    width: calc(100% - 20px);
+  }
+
+  .no-posts {
+    padding: 20px 15px;
+    font-size: 13px;
+  }
+}
+
+@media (hover: none) and (pointer: coarse) {
+  .close-modal {
+    min-width: 44px;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .close-modal:hover {
+    color: #888; 
+  }
+}
+
+/* High DPI Screens */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .modal-overlay {
+    background-color: rgba(0, 0, 0, 0.75);
+  }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .modal-content {
+    animation: none;
+  }
+}
+

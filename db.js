@@ -20,6 +20,12 @@ const post = new Schema({
   caption: String,
   imageUrl: String,
   userid:  { type: Schema.Types.ObjectId, ref: 'users' },
+  likes: [{ type: Schema.Types.ObjectId, ref: 'users' }],
+  comments: [{
+    userid: { type: Schema.Types.ObjectId, ref: 'users' },
+    text: String,
+    createdAt: { type: Date, default: Date.now }
+  }],
   createdAt: { type: Date, default: Date.now },
 });
 

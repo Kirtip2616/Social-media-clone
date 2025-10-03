@@ -58,12 +58,15 @@
 .type-btn {
   flex: 1;
   padding: 12px;
-  border: 1px solid #dbdbdb;
-  background: white;
+  border: 1px solid #000000;
+  background: #f8f8f8;   
   border-radius: 8px;
+  color:black;
   cursor: pointer;
   font-size: 14px;
-  transition: all 0.2s ease;
+  font-weight: 500;
+  text-align: center;
+  transition: all 0.25s ease;
 }
 
 .type-btn.active {
@@ -73,8 +76,10 @@
 }
 
 .type-btn:hover:not(.active) {
-  background-color: #f8f8f8;
+  background-color: #efefef;   
+  border-color: #ccc;
 }
+
 
 .story-form {
   display: flex;
@@ -196,4 +201,333 @@
 
 .create-story-btn:hover:not(:disabled) {
   background-color: #0086e0;
+}
+
+/* Tablet Styles (768px and below) */
+@media (max-width: 768px) {
+  .story-creation-content {
+    padding: 18px;
+    width: 85%;
+    max-width: 450px;
+  }
+
+  .story-creation-header {
+    margin-bottom: 18px;
+    padding-bottom: 12px;
+  }
+
+  .story-creation-header h2 {
+    font-size: 18px;
+  }
+
+  .close-btn {
+    font-size: 22px;
+  }
+
+  .story-type-selector {
+    gap: 8px;
+    margin-bottom: 18px;
+  }
+
+  .type-btn {
+    padding: 10px;
+    font-size: 13px;
+  }
+
+  .story-form {
+    gap: 12px;
+  }
+
+  .story-caption-input {
+    padding: 10px;
+    font-size: 13px;
+  }
+
+  .color-pickers {
+    gap: 12px;
+    margin: 12px 0;
+  }
+
+  .color-picker input[type="color"] {
+    width: 55px;
+    height: 35px;
+  }
+
+  .story-preview {
+    min-height: 180px;
+    padding: 18px;
+    font-size: 16px;
+  }
+
+  .upload-image-btn {
+    padding: 11px 18px;
+    font-size: 13px;
+  }
+
+  .story-image-preview {
+    max-height: 280px;
+  }
+
+  .create-story-btn {
+    padding: 13px;
+    font-size: 14px;
+  }
+}
+
+/* Mobile Styles (480px and below) */
+@media (max-width: 480px) {
+  .story-creation-modal {
+    padding: 10px; 
+  }
+
+  .story-creation-content {
+    padding: 16px;
+    width: 95%;
+    max-width: none;
+    margin: 0 auto;
+    border-radius: 10px; 
+  }
+
+  .story-creation-header {
+    display: flex; 
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+  }
+
+  .story-creation-header h2 {
+    font-size: 18px;
+    color: #262626; 
+  }
+
+  .close-btn {
+    font-size: 22px;
+    padding: 6px;
+    min-width: 44px; 
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .story-type-selector {
+    display: flex; 
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+
+  .type-btn {
+    flex: 1;
+    padding: 12px 8px;
+    font-size: 13px;
+    font-weight: 500; 
+    border-radius: 8px; 
+    border: 1px solid #000000;
+    background: #f8f8f8;
+  }
+
+  .type-btn.active {
+    background-color: #0095f6; 
+    color: white;
+    border-color: #0095f6;
+  }
+
+  .story-form {
+    display: flex; 
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .story-caption-input {
+    padding: 12px;
+    font-size: 14px;
+    border-radius: 8px; 
+    border: 1px solid #dbdbdb; 
+    min-height: 80px; 
+  }
+
+  .color-pickers {
+    display: flex; 
+    gap: 15px;
+    margin: 15px 0;
+  }
+
+  .color-picker {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    flex: 1;
+  }
+
+  .color-picker label {
+    font-size: 13px;
+    color: #666; 
+    font-weight: 500;
+  }
+
+  .color-picker input[type="color"] {
+    width: 100%;
+    max-width: 60px;
+    height: 40px;
+    border-radius: 6px; 
+    cursor: pointer;
+  }
+
+  .story-preview {
+    min-height: 160px;
+
+    border-radius: 12px; 
+    border: 2px dashed #dbdbdb; 
+    font-size: 16px;
+    font-weight: 500; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .upload-image-btn {
+    padding: 14px 20px;
+    font-size: 14px;
+    font-weight: 600; 
+    border-radius: 8px; 
+    background-color: #0095f6; 
+    color: white;
+    min-height: 48px; 
+  }
+
+  .story-image-preview {
+    max-height: 250px;
+    border-radius: 8px; 
+    border: 1px solid #dbdbdb; 
+  }
+
+  .remove-image-btn {
+    width: 36px; 
+    height: 36px;
+    font-size: 18px;
+    top: 12px;
+    right: 12px;
+  }
+
+  .create-story-btn {
+    padding: 15px;
+    font-size: 15px;
+    font-weight: 600; 
+    border-radius: 8px; 
+    background-color: #0095f6; 
+    color: white;
+    min-height: 50px; 
+    margin-top: 10px;
+  }
+
+  .create-story-btn:disabled {
+    background-color: #b2dffc; 
+  }
+}
+
+/* Small Mobile Devices (360px and below) */
+@media (max-width: 360px) {
+  .story-creation-content {
+    padding: 14px;
+    width: 98%;
+  }
+
+  .story-creation-header h2 {
+    font-size: 17px;
+  }
+
+  .close-btn {
+    font-size: 20px;
+  }
+
+  .story-type-selector {
+    gap: 6px;
+  }
+
+  .type-btn {
+    padding: 10px 6px;
+    font-size: 12px;
+  }
+
+  .color-pickers {
+    gap: 10px;
+  }
+
+  .color-picker input[type="color"] {
+    height: 35px;
+  }
+
+  .story-preview {
+    min-height: 140px;
+    padding: 16px;
+    font-size: 15px;
+  }
+
+  .upload-image-btn {
+    padding: 12px 16px;
+    font-size: 13px;
+  }
+
+  .create-story-btn {
+    padding: 13px;
+    font-size: 14px;
+  }
+}
+
+/* Landscape Mode Optimization */
+@media (max-width: 480px) and (orientation: landscape) {
+  .story-creation-content {
+    max-height: 85vh;
+    padding: 12px;
+  }
+
+  .story-preview {
+    height: 100%;
+    padding: 15px;
+  }
+
+  .story-image-preview {
+      height: 100%;
+  }
+}
+
+/* Touch Device Improvements */
+@media (hover: none) and (pointer: coarse) {
+  .close-btn:hover {
+    color: #666; 
+  }
+
+  .type-btn:hover:not(.active) {
+    background-color: #f8f8f8; 
+    border-color: #000000;
+  }
+
+  .upload-image-btn:hover {
+    background-color: #0095f6; 
+  }
+
+  .create-story-btn:hover:not(:disabled) {
+    background-color: #0095f6; 
+  }
+}
+
+/* High DPI Screens */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .story-creation-modal {
+    background-color: rgba(0, 0, 0, 0.85);
+  }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .type-btn {
+    transition: none;
+  }
+  
+  .close-btn,
+  .upload-image-btn,
+  .create-story-btn {
+    transition: none;
+  }
 }

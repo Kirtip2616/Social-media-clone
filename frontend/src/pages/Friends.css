@@ -65,12 +65,20 @@
   border-radius: 8px;
   margin-bottom: 15px;
   background: white;
+  transition: all 0.3s ease;
+  opacity: 1;
+}
+
+.user-card.updating {
+  opacity: 0.7;
+  pointer-events: none;
 }
 
 .user-info {
   display: flex;
   align-items: center;
   gap: 15px;
+  transition: all 0.3s ease;
 }
 
 .user-avatar {
@@ -125,17 +133,352 @@
   font-size: 14px;
   font-weight: 600;
   transition: background-color 0.2s;
+  min-width: 100px;
+  position: relative;
+  overflow: hidden;
 }
-
+.follow-btn:hover:not(.following):not(:disabled) {
+  background-color: #0086e0;
+  transform: translateY(-1px);
+}
 .follow-btn.following {
   background-color: #efefef;
   color: #262626;
+  border: 1px solid #dbdbdb;
 }
 
-.follow-btn:hover:not(.following) {
-  background-color: #0086e0;
-}
-
-.follow-btn.following:hover {
+.follow-btn.following:hover:not(:disabled) {
   background-color: #dbdbdb;
+}
+
+.follow-btn.updating {
+  background-color: #b2dffc;
+  cursor: not-allowed;
+}
+
+.follow-btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.loading-dots {
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0% { opacity: 1; }
+  50% { opacity: 0.5; }
+  100% { opacity: 1; }
+}
+
+.follows-you-badge {
+  background-color: #efefef;
+  color: #262626;
+  padding: 6px 12px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.user-followers {
+  margin: 0;
+  color: #8e8e8e;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+/* Smooth tab transitions */
+.friends-content {
+  transition: opacity 0.3s ease;
+}
+
+.tab-btn {
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.tab-btn.active::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background-color: #262626;
+  transition: all 0.3s ease;
+}
+
+.full-page-loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+  color: #8e8e8e;
+  font-size: 16px;
+}
+
+.suggestions-list,
+.followers-list,
+.following-list {
+  min-height: 300px;
+}
+
+/* Remove any inline-loading styles if they exist */
+.inline-loading {
+  display: none;
+}
+
+/* Tablet Styles (768px and below) */
+@media (max-width: 768px) {
+  .friends-container {
+    margin-left: 0;
+    padding: 20px;
+    max-width: none;
+  }
+
+  .friends-container h1 {
+    font-size: 24px;
+    margin-bottom: 15px;
+  }
+
+  .friends-tabs {
+    margin-bottom: 20px;
+    gap: 5px;
+  }
+
+  .tab-btn {
+    padding: 10px 15px;
+    font-size: 13px;
+  }
+
+  .user-card {
+    padding: 12px;
+    margin-bottom: 12px;
+  }
+
+  .user-info {
+    gap: 12px;
+  }
+
+  .user-avatar {
+    width: 45px;
+    height: 45px;
+    font-size: 16px;
+  }
+
+  .user-details h4 {
+    font-size: 15px;
+  }
+
+  .user-bio {
+    font-size: 13px;
+    max-width: 250px;
+  }
+
+  .follow-btn {
+    padding: 7px 14px;
+    font-size: 13px;
+    min-width: 90px;
+  }
+
+  .follows-you-badge {
+    font-size: 11px;
+    padding: 5px 10px;
+  }
+
+  .user-followers {
+    font-size: 12px;
+  }
+}
+
+/* Mobile Styles (480px and below) */
+@media (max-width: 480px) {
+  .friends-container {
+   padding: 15px 12px;
+    margin-left: 0;
+  }
+
+  .friends-container h1 {
+    font-size: 20px;
+    margin: 10px;
+    margin-bottom: 15px;
+    text-align: left; /* Keep left alignment like desktop */
+  }
+
+  .friends-tabs {
+    display: flex; 
+    gap: 5px;
+    margin-bottom: 20px;
+    overflow-x: auto; /* Allow horizontal scrolling if needed */
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 5px;
+  }
+
+  .tab-btn {
+    padding: 10px 16px;
+    font-size: 13px;
+    white-space: nowrap; /* Prevent text wrapping */
+    flex-shrink: 0; /* Prevent tabs from shrinking */
+  }
+
+  .friends-content {
+    min-height: 300px;
+  }
+
+  .user-card {
+    display: flex; /* Keep horizontal layout like desktop */
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px;
+    margin-bottom: 12px;
+    border-radius: 8px; 
+  }
+
+  .user-info {
+    display: flex; 
+    align-items: center;
+    gap: 12px;
+    flex: 1;
+    min-width: 0; 
+  }
+
+  .user-avatar {
+    width: 44px; 
+    height: 44px;
+    font-size: 16px;
+    flex-shrink: 0; 
+  }
+
+  .user-details {
+    flex: 1;
+    min-width: 0; 
+  }
+
+  .user-details h4 {
+    font-size: 15px;
+    margin-bottom: 4px;
+    color: #262626; 
+  }
+
+  .user-bio {
+    font-size: 13px;
+    max-width: none; /* Allow full width */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-bottom: 3px;
+    color: #8e8e8e; 
+  }
+
+  .user-followers {
+    font-size: 12px;
+    color: #8e8e8e; 
+  }
+
+  .follow-btn {
+    padding: 8px 14px;
+    font-size: 13px;
+    min-width: 85px;
+    font-weight: 600; 
+    border-radius: 4px; 
+    flex-shrink: 0; /* Prevent button from shrinking */
+    margin-left: 10px;
+  }
+
+  .follow-btn.following {
+    background-color: #efefef; 
+    color: #262626;
+    border: 1px solid #dbdbdb;
+  }
+
+  .follows-you-badge {
+    font-size: 11px;
+    padding: 4px 8px;
+    border-radius: 12px; 
+    background-color: #efefef; 
+    color: #262626;
+    margin-left: 8px;
+  }
+
+  .loading,
+  .no-users {
+    padding: 30px 20px;
+    font-size: 14px;
+  }
+
+  .full-page-loading {
+    height: 150px;
+    font-size: 14px;
+  }
+
+  /* Ensure proper spacing for bottom navbar */
+  .friends-container {
+    padding-bottom: 80px;
+  }
+}
+
+/* Small Mobile Devices (360px and below) */
+@media (max-width: 360px) {
+  .friends-container {
+    padding: 12px 10px;
+  }
+
+  .friends-container h1 {
+    font-size: 20px;
+  }
+
+  .tab-btn {
+    padding: 8px 12px;
+    font-size: 12px;
+  }
+
+  .user-card {
+    padding: 10px;
+  }
+
+  .user-info {
+    gap: 10px;
+  }
+
+  .user-avatar {
+    width: 40px;
+    height: 40px;
+    font-size: 14px;
+  }
+
+  .user-details h4 {
+    font-size: 14px;
+  }
+
+  .user-bio {
+    font-size: 12px;
+  }
+
+  .follow-btn {
+    padding: 7px 12px;
+    font-size: 12px;
+    min-width: 80px;
+  }
+
+  .follows-you-badge {
+    font-size: 10px;
+    padding: 3px 6px;
+  }
+}
+
+
+
+/* Touch Device Improvements */
+@media (hover: none) and (pointer: coarse) {
+  .follow-btn:hover:not(.following):not(:disabled) {
+    transform: none; /* Remove hover effects on touch devices */
+  }
+  
+  .tab-btn:hover {
+    color: #8e8e8e; /* Remove hover color on touch */
+  }
+  
+  .tab-btn.active:hover {
+    color: #262626; /* Keep active color */
+  }
 }
